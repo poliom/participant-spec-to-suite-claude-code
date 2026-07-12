@@ -6,20 +6,25 @@ repo for all 6 exercises, writing API and UI tests against the Task Manager demo
 ## Setup
 
 1. Clone this repo.
-2. Make sure the Task Manager app is running (your instructor will share the URL, or run it
-   locally from the demo app repo with `mvn spring-boot:run` — it starts on `http://localhost:8080`).
+2. The Task Manager app is hosted at **https://spec-to-suite.up.railway.app/** — point your
+   tests there, or run it locally from the demo app repo with `mvn spring-boot:run` (starts on
+   `http://localhost:8080`).
 3. Verify your setup:
 
    ```bash
-   mvn test
+   mvn test -Dbase.url=https://spec-to-suite.up.railway.app
    ```
 
-   This should build cleanly and run the existing tests. If the app isn't reachable at
-   `http://localhost:8080`, either start it or pass a different URL:
+   This should build cleanly and run the existing tests. To run against a different host
+   (e.g. a local instance), pass a different URL:
 
    ```bash
-   mvn test -Dbase.url=http://your-app-host:8080
+   mvn test -Dbase.url=http://localhost:8080
    ```
+
+   Note: `BaseApiTest` currently hardcodes `http://localhost:8080` rather than reading
+   `base.url` — that's intentional (see Bug 5 in the exercises), so API tests against the
+   hosted app won't work until it's fixed.
 
 ## Project layout
 
