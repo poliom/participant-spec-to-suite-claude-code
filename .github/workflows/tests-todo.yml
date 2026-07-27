@@ -1,0 +1,54 @@
+# Lecture 6 Exercise — Complete this workflow using Claude Code
+# This file has TODO items for participants to fill in during Exercise 06.
+
+name: Test Suite — Task Manager
+
+on:
+  # TODO 1: When should this workflow trigger?
+  # Hint: on push to main branch, and on all pull requests
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          # TODO 2: Which Java version does this project use? Which distribution?
+          java-version: 'TODO'
+          distribution: 'TODO'
+          cache: maven
+
+      - name: Build application
+        working-directory: app
+        run: mvn clean package -DskipTests
+
+      - name: Start application
+        working-directory: app
+        # TODO 3: How do you start the Spring Boot app in the BACKGROUND?
+        run: TODO
+
+      - name: Wait for application to be ready
+        # TODO 4: Write a health check loop for port 8080.
+        run: TODO
+
+      - name: Run API tests
+        working-directory: app
+        # TODO 5: Maven command — API tests only, base URL as system property.
+        run: TODO
+
+      - name: Run UI tests (headless Chrome)
+        working-directory: app
+        # TODO 6: Maven command — UI tests with headless Chrome flags.
+        run: TODO
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: app/target/surefire-reports/
