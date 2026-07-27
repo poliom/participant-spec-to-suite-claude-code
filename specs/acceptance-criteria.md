@@ -1,10 +1,5 @@
 # Acceptance Criteria — Task Manager
 
-> **Workshop note:** Some ACs below are intentionally ambiguous or incomplete.
-> Lecture 2 asks participants to find them. Instructor annotations are in `[brackets]`.
-
----
-
 ## AC-01: Create a task with a title
 
 **Given** I am on the New Task page  
@@ -21,8 +16,6 @@
 **Then** the task is not created  
 **And** an error is shown  
 
-> **[AMBIGUOUS — Lecture 2 target]:** "An error is shown" — where? In the browser (HTML5 validation popup) or as a server-side flash message? Both behaviours exist; the spec doesn't say which is expected. AI will typically assume one without flagging the ambiguity.
-
 ---
 
 ## AC-03: Task title must be validated
@@ -30,8 +23,6 @@
 **Given** I submit a task title  
 **When** the title is invalid  
 **Then** the task is not created and an error is returned  
-
-> **[AMBIGUOUS — Lecture 2 target]:** What does "invalid" mean? Length limit? Special characters? The spec does not define the validation rules here. This AC is incomplete — the API spec (api-spec.md) defines the actual constraints (1–100 chars, not blank), but this AC does not reference them. AI will often assume a max length of 255 or invent its own rules.
 
 ---
 
@@ -50,8 +41,6 @@
 **Given** a task exists with status "Done"  
 **When** a request is made to complete it again  
 **Then** an error response is returned  
-
-> **[AI UNDER-COVERS THIS — Lecture 2 target]:** AI consistently generates a test for this scenario but asserts HTTP 400 instead of HTTP 409 (Conflict). The correct status code is defined in api-spec.md. Participants must catch this during the coverage audit.
 
 ---
 
@@ -93,8 +82,6 @@
 **Given** no task exists with ID 9999  
 **When** I send DELETE /api/tasks/9999  
 **Then** the response is HTTP 404  
-
-> **[AI OVER-COVERS THIS — Lecture 2 target]:** AI typically generates 5–6 variations of the 404 scenario (different invalid IDs, negative IDs, string IDs) even though the spec only requires basic not-found handling. Participants must identify the invented cases during the coverage audit.
 
 ---
 
