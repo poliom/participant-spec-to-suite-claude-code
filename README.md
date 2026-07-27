@@ -1,44 +1,59 @@
-# workshop-spec-to-suite-participant
+# Spec-to-Suite Workshop — Participant Repo
 
-Participant repository for the **Spec-to-Suite** QA automation workshop. You'll use this
-repo for all 6 exercises, writing API and UI tests against the Task Manager demo app.
+Hands-on repository for the **Spec-to-Suite** QA automation workshop. Across 6 lectures
+(3 sessions) you'll go from a PRD to a green, CI-run test suite for the Task Manager demo
+app — using Claude Code to draft, and your own judgement to verify.
 
-## Setup
+## How the branches work
 
-1. Clone this repo.
-2. The Task Manager app is hosted at **https://spec-to-suite.up.railway.app/** — point your
-   tests there, or run it locally from the demo app repo with `mvn spring-boot:run` (starts on
-   `http://localhost:8080`).
-3. Verify your setup:
+**Clone once, then check out the branch for each session.** Each branch builds on the last,
+so start every session by switching to the right branch.
 
-   ```bash
-   mvn test -Dbase.url=https://spec-to-suite.up.railway.app
-   ```
+| Branch | Session | Lectures | What's in it |
+|--------|---------|----------|--------------|
+| `main` | Session 1 | L1–L2 | Specs, PRD, acceptance criteria, `CLAUDE.md`, `pom.xml` — no test code yet |
+| `session-2` | Session 2 | L3–L4 | Adds clean base classes + a Page Object to build your UI & API tests on |
+| `session-3` | Session 3 | L5–L6 | Adds a test suite to review, debug and harden, plus a CI workflow to complete |
 
-   This should build cleanly and run the existing tests. To run against a different host
-   (e.g. a local instance), pass a different URL:
+```bash
+# Before Session 1 (Lectures 1–2)
+git checkout main
 
-   ```bash
-   mvn test -Dbase.url=http://localhost:8080
-   ```
+# Before Session 2 (Lectures 3–4)
+git fetch origin
+git checkout session-2
 
-   Note: `BaseApiTest` currently hardcodes `http://localhost:8080` rather than reading
-   `base.url` — that's intentional (see Bug 5 in the exercises), so API tests against the
-   hosted app won't work until it's fixed.
+# Before Session 3 (Lectures 5–6)
+git fetch origin
+git checkout session-3
+```
+
+## The app under test
+
+The Task Manager app is hosted at **https://spec-to-suite.up.railway.app/** — point your
+tests there, or run it locally with `mvn spring-boot:run` (starts on `http://localhost:8080`).
+
+## Running tests (Session 2 onward)
+
+```bash
+# Against a local instance
+mvn test -Dbase.url=http://localhost:8080
+
+# Against the hosted app
+mvn test -Dbase.url=https://spec-to-suite.up.railway.app
+```
 
 ## Project layout
 
 ```
+specs/                   # PRD, API spec, UI spec, acceptance criteria (all branches)
+CLAUDE.md                # Project context for Claude Code (all branches)
+pom.xml                  # JUnit 5 + RestAssured + Selenium + WebDriverManager
 src/test/java/com/workshop/taskmanager/
-  BaseApiTest.java       # RestAssured base config
-  BaseUITest.java        # Selenium/WebDriverManager base config
-  TaskApiTest.java       # API tests
-  TaskUITest.java        # UI tests
-  pages/
-    TaskListPage.java    # Page Object
-    TaskFormPage.java    # Page Object
-specs/                   # PRD, API spec, UI spec, acceptance criteria
-CLAUDE.md                # Project context for Claude Code
+  BaseApiTest.java       # RestAssured base config      (session-2 onward)
+  BaseUITest.java        # Selenium / WebDriverManager   (session-2 onward)
+  pages/TaskFormPage.java# Page Object                   (session-2 onward)
+  ...                    # UI & API test suites          (session-3)
 ```
 
 ## Requirements
