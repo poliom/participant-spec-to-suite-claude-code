@@ -95,3 +95,43 @@
 | Update task | "Task updated successfully" | "Task not found" |
 | Complete task | "Task marked as complete" | "Task is already completed" |
 | Delete task | "Task deleted" | "Task not found" |
+
+---
+
+## Element selector reference (source of truth for test automation)
+
+Concrete locators for the elements described above. Use these directly rather than guessing.
+
+### Task List page (`/`)
+
+| Element | Selector |
+|---------|----------|
+| Task table | `#task-table` |
+| Task row | `#task-{id}` (e.g. `#task-1`) |
+| Title cell (within a row) | `#task-{id} td:nth-child(2)` — cells are unclassed, so target positionally |
+| Status badge (within a row) | `#task-{id} .badge` — modifier classes `.badge-pending` / `.badge-done` |
+| **Complete** button (within a row) | `#task-{id} button.btn-success` |
+| **Delete** button (within a row) | `#task-{id} button.btn-danger` — triggers a native `confirm()` dialog |
+| **Edit** link (within a row, pending only) | `#task-{id} a.btn-secondary` |
+| "+ New Task" button | `a.new-task-btn` (or link text "+ New Task") |
+| Flash **success** message | `.alert-success` |
+| Flash **error** message | `.alert-error` |
+| Empty-state cell | `.empty-state` |
+
+### Task Form page (`/tasks/new`, `/tasks/{id}/edit`)
+
+| Element | Selector |
+|---------|----------|
+| Form | `#task-form` |
+| Title input | `#title` |
+| Description textarea | `#description` |
+| Title character counter | `#title-count` (the count value; sibling text reads `{n}/100`) |
+| Description character counter | `#desc-count` (the count value; sibling text reads `{n}/500`) |
+| Submit button | `#submit-btn` |
+| Cancel link | link text "Cancel" (styled `a.btn-secondary`) |
+
+> **Per-row actions must be scoped to `#task-{id}`** — an unscoped `button.btn-success` matches the
+> first row's Complete button, not the one you intend.
+>
+> **Delete** uses a **native browser `confirm()`** dialog — handle it in Selenium with
+> `driver.switchTo().alert().accept()` (or `.dismiss()` to cancel), not a DOM element.
