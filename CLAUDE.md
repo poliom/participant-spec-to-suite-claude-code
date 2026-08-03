@@ -31,7 +31,9 @@ service; point the tests at it with `-Dbase.url`:
 #   UI:        https://spec-to-suite.up.railway.app/
 #   Swagger:   https://spec-to-suite.up.railway.app/swagger-ui/index.html
 
-# Run tests against it (always pass base.url — a bare `mvn test` defaults to localhost and fails):
+# Tests run against the hosted app by default — a bare `mvn test` just works:
+mvn test
+# Override the target if needed:
 mvn test -Dbase.url=https://spec-to-suite.up.railway.app
 ```
 

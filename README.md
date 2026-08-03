@@ -35,10 +35,11 @@ there. (This repo has no `app/`; running a local instance would require the sepa
 
 ## Running tests (Session 2 onward)
 
-Always pass `-Dbase.url` — a bare `mvn test` defaults to `localhost:8080` and fails.
+Tests run against the hosted app by default — `mvn test` just works. Override the target if needed:
 
 ```bash
-# Against the hosted app
+mvn test
+# or explicitly:
 mvn test -Dbase.url=https://spec-to-suite.up.railway.app
 ```
 
