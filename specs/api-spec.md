@@ -1,6 +1,7 @@
 # API Specification — Task Manager
 
-Base URL: `http://localhost:8080/api`
+Base URL: `http://localhost:8080/api` locally, or `https://spec-to-suite.up.railway.app/api` for the
+hosted app. Tests target whichever host you pass via `-Dbase.url`; the paths and status codes below are the same either way.
 
 All request and response bodies use `Content-Type: application/json`.
 

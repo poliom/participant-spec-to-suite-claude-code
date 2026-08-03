@@ -21,13 +21,18 @@ app/
     application.yml                 # H2 in-memory DB, port 8080
 ```
 
-## Running the app
+## The app under test (hosted)
+
+This is a **test-only** repo — there is no `app/` source here. The Task Manager runs as a hosted
+service; point the tests at it with `-Dbase.url`:
 
 ```bash
-cd app
-mvn spring-boot:run
-# App starts at http://localhost:8080
-# H2 console at http://localhost:8080/h2-console
+# Hosted app:  https://spec-to-suite.up.railway.app
+#   UI:        https://spec-to-suite.up.railway.app/
+#   Swagger:   https://spec-to-suite.up.railway.app/swagger-ui/index.html
+
+# Run tests against it (always pass base.url — a bare `mvn test` defaults to localhost and fails):
+mvn test -Dbase.url=https://spec-to-suite.up.railway.app
 ```
 
 ## REST API summary
