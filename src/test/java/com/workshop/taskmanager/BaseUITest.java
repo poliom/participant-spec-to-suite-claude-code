@@ -11,7 +11,7 @@ public class BaseUITest {
 
     protected WebDriver driver;
     protected static final String BASE_URL =
-        System.getProperty("base.url", "http://localhost:8080");
+        System.getProperty("base.url", "https://spec-to-suite.up.railway.app");
 
     @BeforeEach
     void setUpDriver() {

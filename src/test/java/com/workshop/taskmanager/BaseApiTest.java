@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 
 public class BaseApiTest {
 
-    protected static final String BASE_URI = "http://localhost:8080";
+    protected static final String BASE_URI = "https://spec-to-suite.up.railway.app";
 
     @BeforeAll
     static void setup() {
