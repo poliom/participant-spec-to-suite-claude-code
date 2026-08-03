@@ -30,15 +30,14 @@ git checkout session-3
 
 ## The app under test
 
-The Task Manager app is hosted at **https://spec-to-suite.up.railway.app/** — point your
-tests there, or run it locally with `mvn spring-boot:run` (starts on `http://localhost:8080`).
+The Task Manager app is **hosted** at **https://spec-to-suite.up.railway.app/** — point your tests
+there. (This repo has no `app/`; running a local instance would require the separate demo-app repo.)
 
 ## Running tests (Session 2 onward)
 
-```bash
-# Against a local instance
-mvn test -Dbase.url=http://localhost:8080
+Always pass `-Dbase.url` — a bare `mvn test` defaults to `localhost:8080` and fails.
 
+```bash
 # Against the hosted app
 mvn test -Dbase.url=https://spec-to-suite.up.railway.app
 ```
