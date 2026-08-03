@@ -11,9 +11,9 @@ public class TaskListPage {
 
     private final WebDriver driver;
 
-    private final By taskTitles = By.cssSelector("td.task-title");
+    private final By taskTitles = By.cssSelector("#task-table tbody tr[id^='task-'] td:nth-child(2)");
     private final By successAlert = By.cssSelector(".alert-success");
-    private final By newTaskButton = By.id("new-task-btn");
+    private final By newTaskButton = By.cssSelector("a.new-task-btn");
 
     private final By completeButton = By.cssSelector("button.btn-success");
 

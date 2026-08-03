@@ -1,11 +1,17 @@
 # Lecture 6 Exercise — Complete this workflow using Claude Code
-# This file has TODO items for participants to fill in during Exercise 06.
+# Fill in the TODO items during Exercise 06.
+#
+# Note: this repo is test-only (no app/ source). The tests run against the HOSTED app,
+# so the workflow does not build or start a server — it just runs the suite against BASE_URL.
 
 name: Test Suite — Task Manager
 
 on:
   # TODO 1: When should this workflow trigger?
-  # Hint: on push to main branch, and on all pull requests
+  # Hint: on push to the main branch, and on all pull requests
+
+env:
+  BASE_URL: https://spec-to-suite.up.railway.app
 
 jobs:
   test:
@@ -23,27 +29,13 @@ jobs:
           distribution: 'TODO'
           cache: maven
 
-      - name: Build application
-        working-directory: app
-        run: mvn clean package -DskipTests
-
-      - name: Start application
-        working-directory: app
-        # TODO 3: How do you start the Spring Boot app in the BACKGROUND?
-        run: TODO
-
-      - name: Wait for application to be ready
-        # TODO 4: Write a health check loop for port 8080.
-        run: TODO
-
       - name: Run API tests
-        working-directory: app
-        # TODO 5: Maven command — API tests only, base URL as system property.
+        # TODO 3: Maven command — API tests only, base URL taken from the BASE_URL env var.
         run: TODO
 
       - name: Run UI tests (headless Chrome)
-        working-directory: app
-        # TODO 6: Maven command — UI tests with headless Chrome flags.
+        # TODO 4: Maven command — UI tests, headless Chrome, base URL from BASE_URL.
+        # (ubuntu-latest ships google-chrome; WebDriverManager fetches the matching driver.)
         run: TODO
 
       - name: Upload test reports
@@ -51,4 +43,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test-reports
-          path: app/target/surefire-reports/
+          path: target/surefire-reports/
