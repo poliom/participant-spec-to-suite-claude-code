@@ -1,0 +1,46 @@
+# Lecture 6 Exercise — Complete this workflow using Claude Code
+# Fill in the TODO items during Exercise 06.
+#
+# Note: this repo is test-only (no app/ source). The tests run against the HOSTED app,
+# so the workflow does not build or start a server — it just runs the suite against BASE_URL.
+
+name: Test Suite — Task Manager
+
+on:
+  # TODO 1: When should this workflow trigger?
+  # Hint: on push to the main branch, and on all pull requests
+
+env:
+  BASE_URL: https://spec-to-suite.up.railway.app
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          # TODO 2: Which Java version does this project use? Which distribution?
+          java-version: 'TODO'
+          distribution: 'TODO'
+          cache: maven
+
+      - name: Run API tests
+        # TODO 3: Maven command — API tests only, base URL taken from the BASE_URL env var.
+        run: TODO
+
+      - name: Run UI tests (headless Chrome)
+        # TODO 4: Maven command — UI tests, headless Chrome, base URL from BASE_URL.
+        # (ubuntu-latest ships google-chrome; WebDriverManager fetches the matching driver.)
+        run: TODO
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: target/surefire-reports/
