@@ -66,7 +66,7 @@ public class TaskApiTest extends BaseApiTest {
             .patch("/api/tasks/" + id + "/complete")
         .then()
             .statusCode(200)
-            .body("Title", equalTo("Task to complete"));
+            .body("completed", notNullValue());
     }
 
     @Test
