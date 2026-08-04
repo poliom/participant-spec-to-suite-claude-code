@@ -1,0 +1,44 @@
+# Test Suite — Task Manager
+#
+# This repo is test-only (no app/ source). Tests run against the HOSTED app,
+# so the workflow does not build or start a server — it runs the suite against BASE_URL.
+
+name: Test Suite — Task Manager
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+env:
+  BASE_URL: https://spec-to-suite.up.railway.app
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Run API tests
+        run: mvn test -Dtest=TaskApiTest -Dbase.url=$BASE_URL
+
+      - name: Run UI tests (headless Chrome)
+        # ubuntu-latest ships google-chrome; WebDriverManager fetches the matching driver.
+        run: mvn test -Dtest=TaskUITest -Dbase.url=$BASE_URL -Dheadless=true
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: target/surefire-reports/

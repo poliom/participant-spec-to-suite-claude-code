@@ -16,7 +16,7 @@ public class TaskApiTest extends BaseApiTest {
         .when()
             .post("/api/tasks")
         .then()
-            .statusCode(200)
+            .statusCode(201)
             .body("title", equalTo("Buy groceries"));
     }
 
@@ -66,7 +66,8 @@ public class TaskApiTest extends BaseApiTest {
             .patch("/api/tasks/" + id + "/complete")
         .then()
             .statusCode(200)
-            .body("completed", notNullValue());
+            .body("completed", equalTo(true))
+            .body("completedAt", notNullValue());
     }
 
     @Test
