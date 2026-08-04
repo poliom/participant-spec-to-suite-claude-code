@@ -107,4 +107,32 @@ public class TaskApiTest extends BaseApiTest {
         .then()
             .statusCode(204);
     }
+
+    @Test
+    void shouldReturn200AndUpdatedFieldsWhenUpdatingTask() {
+        // Create a task to update
+        int id = given()
+            .contentType(ContentType.JSON)
+            .body("{\"title\": \"Original title\", \"description\": \"Original description\"}")
+        .when()
+            .post("/api/tasks")
+        .then()
+            .statusCode(201)
+            .extract().path("id");
+
+        // Update its title and description
+        given()
+            .contentType(ContentType.JSON)
+            .body("{\"title\": \"Updated title\", \"description\": \"Updated description\"}")
+        .when()
+            .put("/api/tasks/" + id)
+        .then()
+            .statusCode(200)
+            .body("id", equalTo(id))
+            .body("title", equalTo("Updated title"))
+            .body("description", equalTo("Updated description"));
+
+        // Clean up so the test leaves no data behind
+        given().when().delete("/api/tasks/" + id).then().statusCode(204);
+    }
 }
